@@ -3,7 +3,7 @@ package org.arriva.atimer.gui.impl;
 
 import org.arriva.atimer.gui.GuiWindow;
 import org.arriva.atimer.gui.GuiWindowParams;
-import org.arriva.atimer.gui.TimerTick;
+import org.arriva.atimer.gui.TimerTickActionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,26 +22,36 @@ public class SimpleGuiWindow extends GuiWindow {
 
     @Override
     protected void buildAndAttachElements() {
-        setLayout(new FlowLayout());
-        timeLabel = new JLabel();
-        timeLabel.setFont(new Font("Monospaced", Font.BOLD, 80));
-        TimerTick tick = new TimerTick(5, timeLabel);
+        initTimeLabel();
+        initTimer();
+        initStartButton();
+    }
+
+    private void initTimer() {
+        TimerTickActionListener tick = new TimerTickActionListener(5, timeLabel);
         timer = new Timer(1000, tick);
         tick.setTimer(timer);
+    }
+
+    private void initTimeLabel() {
+        timeLabel = new JLabel();
+        timeLabel.setFont(new Font("Arial", Font.BOLD, 80));
+        timeLabel.setBounds((getWidth() - timeLabel.getWidth()) / 2, (getHeight() - timeLabel.getHeight()) / 2, 100, 60);
+    }
+
+    private void initStartButton() {
         start = new JButton("Start");
+        start.setBounds(0, 0, 80, 30);
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 //remove(start);
                 add(timeLabel);
-                validate();
-                repaint();
+                //validate();
+                //repaint();
                 timer.start();
             }
         });
 
         add(start);
-        setPreferredSize(new Dimension(300, 150));
-        setLocationRelativeTo(null);
-        pack();
     }
 }

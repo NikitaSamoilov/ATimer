@@ -5,7 +5,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class TimerTick implements ActionListener {
+public class TimerTickActionListener implements ActionListener {
     private int countdown = 10;
     private JLabel timerLabel;
     private Timer timer;
@@ -30,7 +30,7 @@ public class TimerTick implements ActionListener {
         this.timer = timer;
     }
 
-    public TimerTick(int startCount, JLabel timerLabel) {
+    public TimerTickActionListener(int startCount, JLabel timerLabel) {
         countdown = startCount;
         this.timerLabel = timerLabel;
         this.timer = timer;
